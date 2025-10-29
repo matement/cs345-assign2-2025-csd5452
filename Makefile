@@ -6,11 +6,17 @@ TARGET = restaurant
 
 SRC = main.c functions.c
 
-all = $(TARGET)
+OBJ = $(SRC:.c=.o)
 
-$(TARGET): $(SRC)
-	$(CC) $(CFLAGS) -o $(TARGET) $(SRC)
+DEPS = functions.h
+
+all : $(TARGET)
+
+$(TARGET): $(OBJ)
+	$(CC) $(CFLAGS) -o $@ $^
 	
+%.o: %.c $(DEPS)
+	$(CC) $(CFLAGS) -c $< -o $@
 
 run: $(TARGET)
 	./$(TARGET)

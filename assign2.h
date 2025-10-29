@@ -10,12 +10,27 @@
 #include <time.h>
 
 
-typedef struct Group{
+typedef struct{
     int people;
     int id;
-}Group_t;
+    int seated; //0 if waiting 1 if eating
+    int timespent;
+}Group;
 
-extern pthread_t waiter;
-extern pthread_t *group;
+typedef struct{
+    int capacity;
+    int id;
+    int seatsAvailabe; 
+}Table;
+
+typedef struct{
+    Group g;
+    Table t;
+}Pair;
+
+Group* initgoups(int ngroups, int tablecap);
+Table* innittables(int tablecap, int tablenum);
+
+void start(Group *groups, Table *tables, pthread_t waiter, pthread_t *gtherads, int ngroups);
 
 #endif
