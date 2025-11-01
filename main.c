@@ -1,4 +1,5 @@
 #include "assign2.h"
+pthread_mutex_t tlck;
 
 int main(int argc, char **argv){
     if(argc != 4 || atoi(argv[1]) < 0 || atoi(argv[2])<0 || atoi(argv[3])<0){
@@ -13,8 +14,11 @@ int main(int argc, char **argv){
         //printf("ngroups%d\t tablecap%d\ttablenum%d\n",ngroups, tablecap, tablenum);
         Group *groups = initgoups(ngroups, tablecap);
         Table *tables = innittables(tablecap, tablenum);
+        pthread_mutex_init(&tlck, NULL);
+
         pthread_t waiter;
         pthread_t *gtherads = malloc(ngroups * sizeof(pthread_t));
-        start(groups, tables, waiter, gtherads, ngroups);
+        start(groups, tables, waiter, gtherads, ngroups, tablenum);
+        pthread_mutex_destroy(&tlck);
     }
 }

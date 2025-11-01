@@ -8,6 +8,10 @@
 #include <string.h>
 #include <pthread.h>
 #include <time.h>
+#include "list.h"
+
+
+extern pthread_mutex_t tlck;
 
 
 typedef struct{
@@ -24,13 +28,15 @@ typedef struct{
 }Table;
 
 typedef struct{
-    Group g;
-    Table t;
+    Group *g;
+    Table *t;
+    char* role;
 }Pair;
+
 
 Group* initgoups(int ngroups, int tablecap);
 Table* innittables(int tablecap, int tablenum);
 
-void start(Group *groups, Table *tables, pthread_t waiter, pthread_t *gtherads, int ngroups);
+void start(Group *groups, Table *tables, pthread_t waiter, pthread_t *gtherads, int ngroups, int tablenum);
 
 #endif

@@ -4,11 +4,11 @@ CFLAGS = -Wall -pthread
 
 TARGET = restaurant
 
-SRC = main.c functions.c
+SRC = main.c functions.c list.c
 
 OBJ = $(SRC:.c=.o)
 
-DEPS = functions.h
+DEPS = functions.h lsit.h
 
 all : $(TARGET)
 
