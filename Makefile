@@ -4,11 +4,11 @@ CFLAGS = -Wall -pthread
 
 TARGET = restaurant
 
-SRC = main.c functions.c list.c
+SRC = main.c functions.c list.c queue.c
 
 OBJ = $(SRC:.c=.o)
 
-DEPS = functions.h lsit.h
+DEPS = functions.h list.h queue.h
 
 all : $(TARGET)
 
@@ -22,4 +22,5 @@ run: $(TARGET)
 	./$(TARGET)
 
 clean:
+	rm -f $(OBJ)
 	rm -f $(TARGET)

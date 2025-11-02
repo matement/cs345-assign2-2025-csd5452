@@ -49,9 +49,9 @@ void delete_node(Node **head, int value) {
         temp = temp->next;
     }
 
-    
     if (temp == NULL) return;
 
+   
     
     prev->next = temp->next;
     free(temp);

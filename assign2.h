@@ -12,7 +12,8 @@
 
 
 extern pthread_mutex_t tlck;
-
+extern pthread_mutex_t glck;
+extern pthread_mutex_t general;
 
 typedef struct{
     int people;
@@ -30,9 +31,9 @@ typedef struct{
 typedef struct{
     Group *g;
     Table *t;
-    char* role;
 }Pair;
 
+#include "queue.h"
 
 Group* initgoups(int ngroups, int tablecap);
 Table* innittables(int tablecap, int tablenum);
