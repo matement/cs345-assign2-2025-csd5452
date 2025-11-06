@@ -1,7 +1,7 @@
 #include "queue.h"
 
-void Qinit(Queue *q, int capacity) {
-    q->data = malloc(sizeof(Group) * capacity);
+void Qinit(Queue *q, int capacity){
+    q->data = malloc(sizeof(Group*) * capacity);
     q->front = 0;
     q->rear = -1;
     q->size = 0;
@@ -16,30 +16,19 @@ int QisEmpty(Queue *q) {
     return q->size == 0;
 }
 
-void Qenqueue(Queue *q, Group value) {
-    if (QisFull(q)) return;
+void Qenqueue(Queue *q, Group *g){
     q->rear = (q->rear + 1) % q->capacity;
-    q->data[q->rear] = value;
+    q->data[q->rear] = g;   // store pointer, NOT copy
     q->size++;
 }
 
-Group Qdequeue(Queue *q) {
-    Group dummy = {0, 0, 0, 0};
-    if (QisEmpty(q)) return dummy;
-    Group value = q->data[q->front];
+Group *Qdequeue(Queue *q){
+    Group *g = q->data[q->front];
     q->front = (q->front + 1) % q->capacity;
     q->size--;
-    return value;
+    return g;
 }
 
-void QprintQueue(Queue *q) {
-    if (QisEmpty(q)) return;
-    for (int i = 0; i < q->size; i++) {
-        int index = (q->front + i) % q->capacity;
-        Group g = q->data[index];
-        printf("Group %d: people=%d, seated=%d, timespent=%d\n", g.id, g.people, g.seated, g.timespent);
-    }
-}
 
 void Qdestroy(Queue *q) {
     free(q->data);
